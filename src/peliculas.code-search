@@ -1,0 +1,93 @@
+# Query: peliculas
+# ContextLines: 1
+
+30 resultados - Archivos de 2
+
+Practica3_2_login_catalogo_full\recomendaciones-ia\frontend\src\Catalogo.js:
+    1  import React, { useState } from 'react';
+    2: //import peliculas from './data/peliculas.json';
+    3  import RecomendacionIA from './RecomendacionIA';
+
+    6    const [input, setInput] = useState('');
+    7:   const [peliculasFiltradas, setPeliculasFiltradas] = useState(peliculas);
+    8    const [recomendacionIA, setRecomendacionIA] = useState('');
+    9:   const [peliculasRecomendadas, setPeliculasRecomendadas] = useState([]);
+   10  
+
+   18      const texto = input.toLowerCase();
+   19:     const filtradas = peliculas.filter((peli) =>
+   20        peli.titulo.toLowerCase().includes(texto) ||
+
+   23      );
+   24:     setPeliculasFiltradas(filtradas);
+   25:     setPeliculasRecomendadas([]);
+   26      setRecomendacionIA('');
+
+   30      setRecomendacionIA('Pensando...');
+   31:     setPeliculasRecomendadas([]);
+   32:     setPeliculasFiltradas([]);
+   33  
+
+   38          body: JSON.stringify({
+   39:           prompt: `Tengo una base de datos con estas películas: ${peliculas.map(p => p.titulo).join(', ')}.
+   40  Quiero que me digas solo los títulos de las películas que coincidan con esta descripción: "${input}". Devuélveme únicamente los títulos separados por comas.`
+
+   47  
+   48:       const coincidencias = peliculas.filter((peli) =>
+   49          textoIA.includes(peli.titulo.toLowerCase())
+   50        );
+   51:       setPeliculasRecomendadas(coincidencias);
+   52      } catch (err) {
+
+   85  
+   86:       {peliculasRecomendadas.length > 0 && (
+   87          <div className="galeria">
+
+   89            <div className="grid">
+   90:             {peliculasRecomendadas.map((peli) => (
+   91                <div className="tarjeta" key={peli.id}>
+
+  103  
+  104:       {peliculasFiltradas.length > 0 && (
+  105          <div className="galeria">
+
+  107            <div className="grid">
+  108:             {peliculasFiltradas.map((peli) => (
+  109                <div className="tarjeta" key={peli.id}>
+
+Practica3_2_login_catalogo_full\recomendaciones-ia\frontend\src\RecomendacionIA.js:
+   2  import React, { useState } from 'react';
+   3: //import peliculas from './data/peliculas.json';
+   4  
+
+   7    const [recomendacion, setRecomendacion] = useState('');
+   8:   const [peliculasRecomendadas, setPeliculasRecomendadas] = useState([]);
+   9  
+
+  11      setRecomendacion('🔄 Pensando...');
+  12:     setPeliculasRecomendadas([]);
+  13  
+
+  20          body: JSON.stringify({
+  21:           prompt: `Tengo esta base de datos: ${peliculas.map(p => p.titulo).join(', ')}. 
+  22  Quiero que me digas los títulos que coincidan con: "${input}". Devuélveme solo los títulos separados por comas.`,
+
+  32    body: JSON.stringify({
+  33:     prompt: `Tengo esta base de datos: ${peliculas.map(p => p.titulo).join(', ')}. 
+  34  Quiero que me digas los títulos que coincidan con: "${input}". Devuélveme solo los títulos separados por comas.`,
+
+  42  
+  43:       const coincidencias = peliculas.filter((peli) =>
+  44          textoIA.includes(peli.titulo.toLowerCase())
+
+  46  
+  47:       setPeliculasRecomendadas(coincidencias);
+  48      } catch (error) {
+
+  73  
+  74:       {peliculasRecomendadas.length > 0 && (
+  75          <div className="galeria">
+
+  77            <div className="grid">
+  78:             {peliculasRecomendadas.map((peli) => (
+  79                <div className="tarjeta" key={peli.id}>
